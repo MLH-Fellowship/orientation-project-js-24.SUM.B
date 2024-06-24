@@ -1,17 +1,19 @@
 import "./App.css";
 import { useRef } from "react";
-import html2pdf from 'html2pdf.js';
-
+import html2pdf from "html2pdf.js";
 
 function App() {
-
   const handleDownloadPdf = (resume) => {
     const opt = {
       margin: 0,
-      filename: 'resume.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, ignoreElements: element => element.hasAttribute("data-html2canvas-ignore") },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      filename: "resume.pdf",
+      image: { type: "jpeg", quality: 0.98 },
+      html2canvas: {
+        scale: 2,
+        ignoreElements: (element) =>
+          element.hasAttribute("data-html2canvas-ignore"),
+      },
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
     };
     html2pdf().set(opt).from(resume).save();
   };
@@ -40,7 +42,12 @@ function App() {
         <br></br>
       </div>
       <br></br>
-      <button onClick={() => handleDownloadPdf(resumeRef.current)} data-html2canvas-ignore="true">Export</button>
+      <button
+        onClick={() => handleDownloadPdf(resumeRef.current)}
+        data-html2canvas-ignore="true"
+      >
+        Export
+      </button>
     </div>
   );
 }
