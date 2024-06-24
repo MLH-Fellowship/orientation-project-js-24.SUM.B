@@ -40,6 +40,8 @@ function App() {
       <button onClick={() => handleDownloadPdf(resumeRef.current)} data-html2canvas-ignore="true">Export</button>
     </div>
   );
+
+
 }
 
 export default App;
