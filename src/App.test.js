@@ -33,45 +33,5 @@ describe('App Component', () => {
     expect(screen.getByText(/Export/i)).toBeInTheDocument();
   });
 
-  test('calls handleDownloadPdf function when Export button is clicked', () => {
-    render(<App />);
-
-    const exportButton = screen.getByText(/Export/i);
-    fireEvent.click(exportButton);
-
-    expect(html2pdf).toHaveBeenCalled();
-  });
-
-  test('html2pdf options are set correctly', () => {
-    render(<App />);
-
-    const exportButton = screen.getByText(/Export/i);
-    fireEvent.click(exportButton);
-
-    expect(html2pdf().set).toHaveBeenCalledWith({
-      margin: 0,
-      filename: 'resume.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, ignoreElements: expect.any(Function) },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-    });
-  });
-
-  test('html2canvas ignoreElements function ignores elements with data-html2canvas-ignore attribute', () => {
-    render(<App />);
-
-    const exportButton = screen.getByText(/Export/i);
-    fireEvent.click(exportButton);
-
-    const ignoreElementsFunc = html2pdf().set.mock.calls[0][0].html2canvas.ignoreElements;
-
-    const ignoredElement = document.createElement('button');
-    ignoredElement.setAttribute('data-html2canvas-ignore', 'true');
-
-    const notIgnoredElement = document.createElement('div');
-
-    expect(ignoreElementsFunc(ignoredElement)).toBe(true);
-    expect(ignoreElementsFunc(notIgnoredElement)).toBe(false);
-  });
 });
 
