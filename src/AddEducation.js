@@ -94,7 +94,7 @@ function AddEducation({ navigateTo }) {
         required
       />
       <button type="submit">Add Education</button>
-      <button className="back-button" onClick={() => navigateTo("mainMenu")}>
+      <button className="back-button" onClick={() => navigateTo("resume")}>
         Back
       </button>
     </form>

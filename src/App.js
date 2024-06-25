@@ -1,10 +1,10 @@
 import "./App.css";
 import { useState } from "react";
-import MainMenu from "./MainMenu";
+import Resume from "./Resume";
 import AddEducation from "./AddEducation";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState("mainMenu");
+  const [currentPage, setCurrentPage] = useState("resume");
 
   const navigateTo = (page) => {
     setCurrentPage(page);
@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <h1>Resume Builder</h1>
 
-      {currentPage === "mainMenu" && <MainMenu navigateTo={navigateTo} />}
+      {currentPage === "resume" && <Resume navigateTo={navigateTo} />}
       {currentPage === "addEducation" && (
         <AddEducation navigateTo={navigateTo} />
       )}
