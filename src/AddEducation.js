@@ -19,9 +19,22 @@ function AddEducation({ navigateTo }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    // Format the date in the format "Month Year"
+    const formatDate = (dateString) => {
+      const options = { year: "numeric", month: "long" };
+      const date = new Date(dateString);
+      return date.toLocaleDateString("en-US", options);
+    };
+
     try {
-      const response = await axios.post("/resume/education", education);
-      alert(`Education added with ID: ${response.data.id}`);
+      const response = await axios.post("/resume/education", {
+        ...education,
+        start_date: formatDate(education.start_date),
+        end_date: formatDate(education.end_date),
+        grade: `${education.grade}%`,
+      });
+      console.log(`Education added with ID: ${response.data.id}`);
       navigateTo("mainMenu");
     } catch (error) {
       console.error("Error adding education:", error);
@@ -48,13 +61,16 @@ function AddEducation({ navigateTo }) {
       />
       <input
         name="start_date"
+        type="month"
         value={education.start_date}
         onChange={handleChange}
         placeholder="Start Date"
         required
       />
+
       <input
         name="end_date"
+        type="month"
         value={education.end_date}
         onChange={handleChange}
         placeholder="End Date"
@@ -62,6 +78,9 @@ function AddEducation({ navigateTo }) {
       />
       <input
         name="grade"
+        type="number"
+        min="0"
+        max="100"
         value={education.grade}
         onChange={handleChange}
         placeholder="Grade"
