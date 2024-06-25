@@ -27,3 +27,28 @@ button {
   border-radius: 4px;
   background-color: rgb(248 185 42);
 }
+
+.incorrect {
+  text-decoration: underline;
+  text-decoration-color: red;
+  text-decoration-style: wavy;
+  position: relative;
+  cursor: pointer;
+}
+
+.tooltip {
+  display: none;
+  position: absolute;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 2px 5px;
+  color: #000;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+}
+
+.incorrect:hover > .tooltip {
+  display: block;
+}
+
