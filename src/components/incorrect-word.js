@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const IncorrectWord = ({ word, correct, onClick }) => {
   console.log("Word: ", word);
@@ -12,4 +12,3 @@ const IncorrectWord = ({ word, correct, onClick }) => {
 };
 
 export default IncorrectWord;
-

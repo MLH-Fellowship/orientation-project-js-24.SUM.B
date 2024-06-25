@@ -22,43 +22,46 @@ function App() {
   const [content, setContent] = useState({
     experience: [
       "Experience Placeholder with a mistke.",
-      "Another experience paragraph with an eror."
+      "Another experience paragraph with an eror.",
     ],
     education: [
       "Education Placeholder with a eror.",
-      "Another education paragraph with a mistke."
+      "Another education paragraph with a mistke.",
     ],
     skills: [
       "Skill Placeholder with a typo.",
-      "Another skill paragraph with a eror."
+      "Another skill paragraph with a eror.",
     ],
   });
 
   const [corrections, setCorrections] = useState({
     experience: [
       { before: "mistke", after: "mistake" },
-      { before: "eror", after: "error" }
+      { before: "eror", after: "error" },
     ],
     education: [
       { before: "eror", after: "error" },
-      { before: "mistke", after: "mistake" }
+      { before: "mistke", after: "mistake" },
     ],
     skills: [
       { before: "typo", after: "typo" },
-      { before: "eror", after: "error" }
+      { before: "eror", after: "error" },
     ],
   });
 
   const applyCorrection = (sectionName, incorrectWord, correctWord) => {
     setContent((prevContent) => {
       const updatedSection = prevContent[sectionName].map((paragraph) =>
-        paragraph.split(' ').map((word) =>
-          word.replace(/[^\w\s]/g, "") === incorrectWord ? correctWord : word
-        ).join(' ')
+        paragraph
+          .split(" ")
+          .map((word) =>
+            word.replace(/[^\w\s]/g, "") === incorrectWord ? correctWord : word
+          )
+          .join(" ")
       );
       return {
         ...prevContent,
-        [sectionName]: updatedSection
+        [sectionName]: updatedSection,
       };
     });
   };
@@ -70,14 +73,16 @@ function App() {
 
     parts.forEach((part, index) => {
       const strippedPart = part.replace(/[^\w\s]/g, "");
-      const correction = corrections.find(c => c.before === strippedPart);
+      const correction = corrections.find((c) => c.before === strippedPart);
       if (correction) {
         elements.push(
           <IncorrectWord
             key={index}
             word={part}
             correct={correction.after}
-            onClick={(incorrectWord, correctWord) => applyCorrection(sectionName, incorrectWord, correctWord)}
+            onClick={(incorrectWord, correctWord) =>
+              applyCorrection(sectionName, incorrectWord, correctWord)
+            }
           />
         );
       } else {
@@ -94,7 +99,9 @@ function App() {
 
   const renderContent = (sectionName, sectionContent, corrections) => {
     return sectionContent.map((paragraph, index) => (
-      <p key={index}>{getCorrectedContent(paragraph, corrections, sectionName)}</p>
+      <p key={index}>
+        {getCorrectedContent(paragraph, corrections, sectionName)}
+      </p>
     ));
   };
 
@@ -105,19 +112,23 @@ function App() {
       <h1>Resume Builder</h1>
       <div className="resumeSection">
         <h2>Experience</h2>
-        {renderContent('experience', content.experience, corrections.experience)}
+        {renderContent(
+          "experience",
+          content.experience,
+          corrections.experience
+        )}
         <button data-html2canvas-ignore="true">Add Experience</button>
         <br></br>
       </div>
       <div className="resumeSection">
         <h2>Education</h2>
-        {renderContent('education', content.education, corrections.education)}
+        {renderContent("education", content.education, corrections.education)}
         <button data-html2canvas-ignore="true">Add Education</button>
         <br></br>
       </div>
       <div className="resumeSection">
         <h2>Skills</h2>
-        {renderContent('skills', content.skills, corrections.skills)}
+        {renderContent("skills", content.skills, corrections.skills)}
         <button data-html2canvas-ignore="true">Add Skill</button>
         <br></br>
       </div>
@@ -133,4 +144,3 @@ function App() {
 }
 
 export default App;
-
