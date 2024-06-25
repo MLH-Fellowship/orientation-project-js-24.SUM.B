@@ -1,29 +1,23 @@
 import "./App.css";
+import { useState } from "react";
+import MainMenu from "./MainMenu";
+import AddEducation from "./AddEducation";
 
 function App() {
+  const [currentPage, setCurrentPage] = useState("mainMenu");
+
+  const navigateTo = (page) => {
+    setCurrentPage(page);
+  };
+
   return (
     <div className="App">
       <h1>Resume Builder</h1>
-      <div className="resumeSection">
-        <h2>Experience</h2>
-        <p>Experience Placeholder</p>
-        <button>Add Experience</button>
-        <br></br>
-      </div>
-      <div className="resumeSection">
-        <h2>Education</h2>
-        <p>Education Placeholder</p>
-        <button>Add Education</button>
-        <br></br>
-      </div>
-      <div className="resumeSection">
-        <h2>Skills</h2>
-        <p>Skill Placeholder</p>
-        <button>Add Skill</button>
-        <br></br>
-      </div>
-      <br></br>
-      <button>Export</button>
+
+      {currentPage === "mainMenu" && <MainMenu navigateTo={navigateTo} />}
+      {currentPage === "addEducation" && (
+        <AddEducation navigateTo={navigateTo} />
+      )}
     </div>
   );
 }
