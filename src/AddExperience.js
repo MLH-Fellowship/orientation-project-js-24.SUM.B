@@ -11,6 +11,7 @@ export default function AddExperience({ navigateTo }) {
     end_date: "",
     description: "",
     logo: "",
+    present: false,
   });
 
   const handleChange = (e) => {
@@ -28,10 +29,16 @@ export default function AddExperience({ navigateTo }) {
     };
 
     try {
+      console.log(experience);
       const response = await axios.post("/resume/experience", {
-        ...experience,
+        title: experience.title,
+        company: experience.company,
+        description: experience.description,
+        logo: experience.logo,
         start_date: formatDate(experience.start_date),
-        end_date: formatDate(experience.end_date),
+        end_date: experience.present
+          ? "Present"
+          : formatDate(experience.end_date),
       });
       console.log(`Experience added with ID: ${response.data.id}`);
       navigateTo("mainMenu");
@@ -44,20 +51,21 @@ export default function AddExperience({ navigateTo }) {
   return (
     <form onSubmit={handleSubmit} className="resumeSection">
       <h2>Add Experience</h2>
+      <label htmlFor="title">Title</label>
       <input
         name="title"
         value={experience.title}
         onChange={handleChange}
-        placeholder="Title"
         required
       />
+      <label htmlFor="company">Company</label>
       <input
         name="company"
         value={experience.company}
         onChange={handleChange}
-        placeholder="Company"
         required
       />
+      <label htmlFor="start_date">Start Date</label>
       <input
         name="start_date"
         value={experience.start_date}
@@ -65,28 +73,39 @@ export default function AddExperience({ navigateTo }) {
         type="month"
         required
       />
-      <input
-        name="end_date"
-        value={experience.end_date}
-        onChange={handleChange}
-        type="month"
-        required
-      />
+      <label htmlFor="end_date">End Date</label>
+      <div className="input-group">
+        <input
+          name="end_date"
+          value={experience.end_date}
+          onChange={handleChange}
+          type="month"
+          required={!experience.present}
+          disabled={experience.present}
+        />
+        <button
+          type="button"
+          onClick={() => {
+            setExperience({ ...experience, present: !experience.present });
+          }}
+          className={`toggle-button ${
+            experience.present ? "toggle-pressed" : ""
+          }`}
+        >
+          Present
+        </button>
+      </div>
+      <label htmlFor="description">Description</label>
       <textarea
         name="description"
         value={experience.description}
         onChange={handleChange}
-        placeholder="Description"
         required
       />
-      <input
-        name="logo"
-        value={experience.logo}
-        onChange={handleChange}
-        placeholder="Logo URL"
-      />
+      <label htmlFor="logo">Logo URL</label>
+      <input name="logo" value={experience.logo} onChange={handleChange} />
       <button type="submit">Add Experience</button>
-      <button className="back-button" onClick={() => navigateTo("mainMenu")}>
+      <button className="back-button" onClick={() => navigateTo("resume")}>
         Back
       </button>
     </form>
