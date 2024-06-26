@@ -2,6 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import Resume from "./Resume";
 import AddEducation from "./AddEducation";
+import AddSkill from "./AddSkill";
 import AddExperience from "./AddExperience";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       {currentPage === "addEducation" && (
         <AddEducation navigateTo={navigateTo} />
       )}
+      {currentPage === "addSkill" && <AddSkill navigateTo={navigateTo} />}
       {currentPage === "addExperience" && (
         <AddExperience navigateTo={navigateTo} />
       )}
