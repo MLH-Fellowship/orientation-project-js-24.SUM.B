@@ -1,7 +1,7 @@
 import React from "react";
 import { capitalizeFirstLetter } from "../utils";
 
-const Sidebar = ({ isOpen, toggleSidebar, suggestions, onAccept }) => {
+const Sidebar = ({ isOpen, toggleSidebar, suggestions, onAccept}) => {
   return (
     <div className={`sidebar ${isOpen ? "open" : ""}`}>
       <button className="close-btn" onClick={toggleSidebar}>
