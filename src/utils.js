@@ -7,7 +7,12 @@ export const capitalizeFirstLetter = (string) => {
 
 // Spell check functions
 
-export const applyCorrection = (sectionName, incorrectWord, correctWord, setContent) => {
+export const applyCorrection = (
+  sectionName,
+  incorrectWord,
+  correctWord,
+  setContent
+) => {
   setContent((prevContent) => {
     const updatedSection = prevContent[sectionName].map((paragraph) =>
       paragraph
@@ -71,4 +76,3 @@ export const handleDownloadPdf = (resume) => {
   };
   html2pdf().set(opt).from(resume).save();
 };
-
