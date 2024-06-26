@@ -2,6 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import Resume from "./Resume";
 import AddEducation from "./AddEducation";
+import AddSkill from "./AddSkill";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("resume");
@@ -18,6 +19,7 @@ function App() {
       {currentPage === "addEducation" && (
         <AddEducation navigateTo={navigateTo} />
       )}
+      {currentPage === "addSkill" && <AddSkill navigateTo={navigateTo} />}
     </div>
   );
 }
