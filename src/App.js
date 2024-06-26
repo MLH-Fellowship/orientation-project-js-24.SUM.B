@@ -2,6 +2,7 @@ import "./App.css";
 import { useRef, useState } from "react";
 import html2pdf from "html2pdf.js";
 import IncorrectWord from "./components/incorrect-word";
+import Sidebar from "./components/Sidebar";
 
 function App() {
   const handleDownloadPdf = (resume) => {
@@ -49,6 +50,18 @@ function App() {
     ],
   });
 
+  const [suggestions, setSuggestions] = useState({
+    experience: ["Consider adding a project experience.", "Include metrics to show impact."],
+    education: ["Add relevant coursework.", "Include academic honors."],
+    skills: ["Highlight proficiency in specific tools.", "Include soft skills."],
+  });
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   const applyCorrection = (sectionName, incorrectWord, correctWord) => {
     setContent((prevContent) => {
       const updatedSection = prevContent[sectionName].map((paragraph) =>
@@ -62,6 +75,24 @@ function App() {
       return {
         ...prevContent,
         [sectionName]: updatedSection,
+      };
+    });
+  };
+
+  const addSuggestion = (sectionName, suggestion) => {
+    setContent((prevContent) => {
+      const updatedSection = [...prevContent[sectionName], suggestion];
+      return {
+        ...prevContent,
+        [sectionName]: updatedSection,
+      };
+    });
+    // Optionally, remove the accepted suggestion from the suggestions list
+    setSuggestions((prevSuggestions) => {
+      const updatedSuggestions = prevSuggestions[sectionName].filter(s => s !== suggestion);
+      return {
+        ...prevSuggestions,
+        [sectionName]: updatedSuggestions,
       };
     });
   };
@@ -110,10 +141,17 @@ function App() {
   return (
     <div className="App" ref={resumeRef}>
       <h1>Resume Builder</h1>
+      <button className="open-sidebar-btn" onClick={toggleSidebar}>Show Suggestions</button>
+      <Sidebar
+        isOpen={isSidebarOpen}
+        toggleSidebar={toggleSidebar}
+        suggestions={suggestions}
+        onAccept={addSuggestion}
+      />
       <div className="resumeSection">
         <h2>Experience</h2>
         {renderContent(
-          "experience",
+          "Experience",
           content.experience,
           corrections.experience
         )}
@@ -122,13 +160,13 @@ function App() {
       </div>
       <div className="resumeSection">
         <h2>Education</h2>
-        {renderContent("education", content.education, corrections.education)}
+        {renderContent("Education", content.education, corrections.education)}
         <button data-html2canvas-ignore="true">Add Education</button>
         <br></br>
       </div>
       <div className="resumeSection">
         <h2>Skills</h2>
-        {renderContent("skills", content.skills, corrections.skills)}
+        {renderContent("Skills", content.skills, corrections.skills)}
         <button data-html2canvas-ignore="true">Add Skill</button>
         <br></br>
       </div>
@@ -144,3 +182,4 @@ function App() {
 }
 
 export default App;
+

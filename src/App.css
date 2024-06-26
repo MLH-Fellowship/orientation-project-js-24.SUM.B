@@ -5,6 +5,7 @@ body {
 .App {
   text-align: center;
   color: white;
+  position: relative;
 }
 
 .resumeSection {
@@ -16,6 +17,7 @@ body {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   margin-bottom: 20px;
   color: black;
+  position: relative;
 }
 
 .resumeSection p {
@@ -51,3 +53,50 @@ button {
 .incorrect:hover > .tooltip {
   display: block;
 }
+
+.sidebar {
+  position: fixed;
+  right: -400px;
+
+  top: 0;
+  width: 350px;
+  height: 100%;
+  background-color: #f9f9f9;
+  border-left: 1px solid #ddd;
+  padding: 1em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: right 0.3s;
+  z-index: 1000;
+  color: black;
+}
+
+.sidebar.open {
+  right: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.suggestion {
+  margin-bottom: 10px;
+}
+
+.suggestion p {
+  display: inline-block;
+  margin: 0;
+}
+
+.suggestion button {
+  margin-left: 10px;
+}
+
+.open-sidebar-btn {
+  position: absolute;
+  bottom: 2%;
+  right: 2%;
+}
+
