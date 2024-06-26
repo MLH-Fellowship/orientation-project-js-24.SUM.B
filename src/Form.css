@@ -9,6 +9,11 @@ form {
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   margin-bottom: 20px;
   color: black;
+  text-align: left;
+}
+
+form h2 {
+  text-align: center;
 }
 
 form input {
@@ -19,17 +24,17 @@ form input {
   border: 1px solid rgb(248 185 42);
 }
 
-form input:focus {
-  outline: none;
-  border: 1px solid rgb(248 185 42);
-}
-
 form .back-button {
   position: absolute;
   top: 10px;
   left: 10px;
   padding: 10px;
   border-radius: 4px;
+}
+
+form button {
+  margin: 0 auto;
+  display: block;
 }
 
 button {
