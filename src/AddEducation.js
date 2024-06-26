@@ -45,37 +45,37 @@ function AddEducation({ navigateTo }) {
   return (
     <form onSubmit={handleSubmit} className="resumeSection">
       <h2>Add Education</h2>
+      <label htmlFor="course">Course:</label>
       <input
         name="course"
         value={education.course}
         onChange={handleChange}
-        placeholder="Course"
         required
       />
+      <label htmlFor="school">School:</label>
       <input
         name="school"
         value={education.school}
         onChange={handleChange}
-        placeholder="School"
         required
       />
+      <label htmlFor="start_date">Start Date:</label>
       <input
         name="start_date"
         type="month"
         value={education.start_date}
         onChange={handleChange}
-        placeholder="Start Date"
         required
       />
-
+      <label htmlFor="end_date">End Date:</label>
       <input
         name="end_date"
         type="month"
         value={education.end_date}
         onChange={handleChange}
-        placeholder="End Date"
         required
       />
+      <label htmlFor="grade">Grade:</label>
       <input
         name="grade"
         type="number"
@@ -83,14 +83,13 @@ function AddEducation({ navigateTo }) {
         max="100"
         value={education.grade}
         onChange={handleChange}
-        placeholder="Grade"
         required
       />
+      <label htmlFor="logo">Logo URL:</label>
       <input
         name="logo"
         value={education.logo}
         onChange={handleChange}
-        placeholder="Logo URL"
         required
       />
       <button type="submit">Add Education</button>
