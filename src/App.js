@@ -51,9 +51,15 @@ function App() {
   });
 
   const [suggestions, setSuggestions] = useState({
-    experience: ["Consider adding a project experience.", "Include metrics to show impact."],
+    experience: [
+      "Consider adding a project experience.",
+      "Include metrics to show impact.",
+    ],
     education: ["Add relevant coursework.", "Include academic honors."],
-    skills: ["Highlight proficiency in specific tools.", "Include soft skills."],
+    skills: [
+      "Highlight proficiency in specific tools.",
+      "Include soft skills.",
+    ],
   });
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -89,7 +95,9 @@ function App() {
     });
     // Optionally, remove the accepted suggestion from the suggestions list
     setSuggestions((prevSuggestions) => {
-      const updatedSuggestions = prevSuggestions[sectionName].filter(s => s !== suggestion);
+      const updatedSuggestions = prevSuggestions[sectionName].filter(
+        (s) => s !== suggestion
+      );
       return {
         ...prevSuggestions,
         [sectionName]: updatedSuggestions,
@@ -141,7 +149,9 @@ function App() {
   return (
     <div className="App" ref={resumeRef}>
       <h1>Resume Builder</h1>
-      <button className="open-sidebar-btn" onClick={toggleSidebar}>Show Suggestions</button>
+      <button className="open-sidebar-btn" onClick={toggleSidebar}>
+        Show Suggestions
+      </button>
       <Sidebar
         isOpen={isSidebarOpen}
         toggleSidebar={toggleSidebar}
@@ -182,4 +192,3 @@ function App() {
 }
 
 export default App;
-
