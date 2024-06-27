@@ -1,5 +1,6 @@
 import React from "react";
 import { capitalizeFirstLetter } from "../utils";
+import "../Sidebar.css";
 
 const Sidebar = ({ isOpen, toggleSidebar, suggestions, onAccept }) => {
   return (
