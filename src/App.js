@@ -2,6 +2,7 @@ import "./App.css";
 import { useRef, useState } from "react";
 import html2pdf from "html2pdf.js";
 import IncorrectWord from "./components/incorrect-word";
+import PersonalInfo from "./components/personal-info";
 
 function App() {
   const handleDownloadPdf = (resume) => {
@@ -110,17 +111,9 @@ function App() {
   return (
     <div className="App" ref={resumeRef}>
       <h1>Resume Builder</h1>
-      <div className="resumeSection">
-        <h2>Personal Information</h2>
-        <label for="name">Enter your full name: </label>
-        <input type="text" class="name"></input>
-        <br></br>
-        <label for="email">Enter your phone number: </label>
-        <input type="email" class="email"></input>
-        <br></br>
-        <label for="email">Enter your email address: </label>
-        <input type="tel" class="phoneNumber"></input>
-      </div>
+
+      <PersonalInfo />
+
       <div className="resumeSection">
         <h2>Experience</h2>
         {renderContent(
