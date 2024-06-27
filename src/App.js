@@ -1,9 +1,12 @@
 import "./App.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Resume from "./Resume";
 import AddEducation from "./AddEducation";
 import AddSkill from "./AddSkill";
 import AddExperience from "./AddExperience";
+import html2pdf from "html2pdf.js";
+import IncorrectWord from "./components/incorrect-word";
+import PersonalInfo from "./components/personal-info";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("resume");
@@ -15,6 +18,7 @@ function App() {
   return (
     <div className="App">
       <h1>Resume Builder</h1>
+      <PersonalInfo />
 
       {currentPage === "resume" && <Resume navigateTo={navigateTo} />}
       {currentPage === "addEducation" && (
