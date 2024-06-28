@@ -4,8 +4,6 @@ import Resume from "./Resume";
 import AddEducation from "./AddEducation";
 import AddSkill from "./AddSkill";
 import AddExperience from "./AddExperience";
-import html2pdf from "html2pdf.js";
-import IncorrectWord from "./components/incorrect-word";
 import PersonalInfo from "./components/personal-info";
 
 function App() {
