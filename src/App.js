@@ -4,6 +4,7 @@ import Resume from "./Resume";
 import AddEducation from "./AddEducation";
 import AddSkill from "./AddSkill";
 import AddExperience from "./AddExperience";
+import PersonalInfo from "./components/personal-info";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("resume");
@@ -15,6 +16,7 @@ function App() {
   return (
     <div className="App">
       <h1>Resume Builder</h1>
+      <PersonalInfo />
 
       {currentPage === "resume" && <Resume navigateTo={navigateTo} />}
       {currentPage === "addEducation" && (
