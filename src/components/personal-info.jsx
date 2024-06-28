@@ -11,6 +11,19 @@ function PersonalInfo() {
     setUserInfo({...userInfo, [e.target.name]: e.target.value})
   }
 
+const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post("/resume/personal", //update the route after it's implemented in the backend
+      ...userInfo);
+      console.log(`user info added with ID: ${response.data.id}`);
+      navigateTo("mainMenu");
+    } catch (error) {
+      console.error("Error adding user info:", error);
+      alert("Failed to add user info.");
+    }
+}; 
   return (
 
     <form className="resumeSection">
