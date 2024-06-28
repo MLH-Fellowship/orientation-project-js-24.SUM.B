@@ -1,5 +1,5 @@
 import "./App.css";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import Resume from "./Resume";
 import AddEducation from "./AddEducation";
 import AddSkill from "./AddSkill";
