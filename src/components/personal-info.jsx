@@ -26,7 +26,7 @@ const handleSubmit = async (e) => {
 }; 
   return (
 
-    <form className="resumeSection">
+    <form onSubmit={handleSubmit} className="resumeSection">
         <h2>Personal Information</h2>
 
         <label for="name">Enter your full name: </label>
