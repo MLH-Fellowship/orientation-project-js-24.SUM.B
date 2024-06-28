@@ -1,23 +1,8 @@
 import React, { useState, useRef } from "react";
-import html2pdf from "html2pdf.js";
-import IncorrectWord from "./components/incorrect-word";
+import Sidebar from "./components/Sidebar";
+import { getCorrectedContent, handleDownloadPdf } from "./utils";
 
 export default function MainMenu({ navigateTo }) {
-  const handleDownloadPdf = (resume) => {
-    const opt = {
-      margin: 0,
-      filename: "resume.pdf",
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: {
-        scale: 2,
-        ignoreElements: (element) =>
-          element.hasAttribute("data-html2canvas-ignore"),
-      },
-      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
-    };
-    html2pdf().set(opt).from(resume).save();
-  };
-
   const [content, setContent] = useState({
     experience: [
       "Experience Placeholder with a mistke.",
@@ -48,52 +33,22 @@ export default function MainMenu({ navigateTo }) {
     ],
   });
 
-  const applyCorrection = (sectionName, incorrectWord, correctWord) => {
-    setContent((prevContent) => {
-      const updatedSection = prevContent[sectionName].map((paragraph) =>
-        paragraph
-          .split(" ")
-          .map((word) =>
-            word.replace(/[^\w\s]/g, "") === incorrectWord ? correctWord : word
-          )
-          .join(" ")
-      );
-      return {
-        ...prevContent,
-        [sectionName]: updatedSection,
-      };
-    });
-  };
+  const [suggestions, setSuggestions] = useState({
+    experience: [
+      "Consider adding a project experience.",
+      "Include metrics to show impact.",
+    ],
+    education: ["Add relevant coursework.", "Include academic honors."],
+    skills: [
+      "Highlight proficiency in specific tools.",
+      "Include soft skills.",
+    ],
+  });
 
-  const getCorrectedContent = (paragraph, corrections, sectionName) => {
-    const regex = /(\b\w+\b|[^\w\s]+)/g;
-    const parts = paragraph.match(regex);
-    let elements = [];
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-    parts.forEach((part, index) => {
-      const strippedPart = part.replace(/[^\w\s]/g, "");
-      const correction = corrections.find((c) => c.before === strippedPart);
-      if (correction) {
-        elements.push(
-          <IncorrectWord
-            key={index}
-            word={part}
-            correct={correction.after}
-            onClick={(incorrectWord, correctWord) =>
-              applyCorrection(sectionName, incorrectWord, correctWord)
-            }
-          />
-        );
-      } else {
-        elements.push(<span key={index}>{part}</span>);
-      }
-      // Add a space after each part except the last one
-      if (index < parts.length - 1) {
-        elements.push(<span key={`space-${index}`}> </span>);
-      }
-    });
-
-    return elements;
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   const renderContent = (sectionName, sectionContent, corrections) => {
@@ -104,10 +59,38 @@ export default function MainMenu({ navigateTo }) {
     ));
   };
 
+  const handleAcceptSuggestion = (sectionName, suggestion) => {
+    setContent((prevContent) => {
+      const updatedSection = [...prevContent[sectionName], suggestion];
+      return {
+        ...prevContent,
+        [sectionName]: updatedSection,
+      };
+    });
+    setSuggestions((prevSuggestions) => {
+      const updatedSuggestions = prevSuggestions[sectionName].filter(
+        (s) => s !== suggestion
+      );
+      return {
+        ...prevSuggestions,
+        [sectionName]: updatedSuggestions,
+      };
+    });
+  };
+
   const resumeRef = useRef();
 
   return (
     <div ref={resumeRef}>
+      <button className="open-sidebar-btn" onClick={toggleSidebar}>
+        Show Suggestions
+      </button>
+      <Sidebar
+        isOpen={isSidebarOpen}
+        toggleSidebar={toggleSidebar}
+        suggestions={suggestions}
+        onAccept={handleAcceptSuggestion}
+      />
       <div className="resumeSection">
         <h2>Experience</h2>
         {renderContent(
