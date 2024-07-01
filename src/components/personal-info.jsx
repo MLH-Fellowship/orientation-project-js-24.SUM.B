@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import axios from 'axios';
 
 function PersonalInfo() {
   const [userInfo, setUserInfo] = useState({
@@ -18,7 +19,7 @@ const handleSubmit = async (e) => {
       const response = await axios.post("/resume/personal", //update the route after it's implemented in the backend
       ...userInfo);
       console.log(`user info added with ID: ${response.data.id}`);
-      navigateTo("mainMenu");
+      //navigateTo("mainMenu");
     } catch (error) {
       console.error("Error adding user info:", error);
       alert("Failed to add user info.");
@@ -40,6 +41,10 @@ const handleSubmit = async (e) => {
 
         <label for="email">Enter your email address: </label>
         <input type="tel" name="number"></input>
+        
+        <label for="profile-pic">Upload you profile picture here: </label>
+        <input type="file" name="file" onChange={handleChange}/>
+
         <button type="submit">Save</button>
       </form>
   );
